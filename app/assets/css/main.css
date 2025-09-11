@@ -10,3 +10,6 @@ input, button, textarea, select {
   font-family: var(--font-sans);
   font-size: 100%;
 }
+body{
+  background-color: rgb(11, 11, 29);
+}
