@@ -13,9 +13,11 @@
     "@nuxtjs/google-fonts": "^3.2.0",
     "@primeuix/themes": "^1.2.3",
     "@primevue/nuxt-module": "^4.3.8",
+    "@tailwindcss/vite": "^4.1.13",
     "nuxt": "^4.0.3",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.8",
+    "tailwindcss": "^4.1.13",
     "vue": "^3.5.20",
     "vue-router": "^4.5.1"
   }

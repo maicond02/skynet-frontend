@@ -1,5 +1,6 @@
 import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
+import tailwindcss from '@tailwindcss/vite';
 const MyPreset = definePreset(Aura, {
     semantic: {
         primary: {
@@ -21,6 +22,30 @@ export default defineNuxtConfig({
     modules: [
         '@primevue/nuxt-module', '@nuxtjs/google-fonts'
     ],
+    vite: {
+        plugins: [tailwindcss()]
+    },
+    nitro: {
+        compatibilityDate: '2025-09-02',
+        routeRules: {
+            '/api/**': {
+                proxy: process.env.NUXT_PUBLIC_API_TARGET || 'http://localhost:8001/**'
+            }
+        }
+    },
+    runtimeConfig: {
+        public: {
+            apiBase: process.env.NUXT_PUBLIC_API_BASE || '/api'
+        }
+    },
+    googleFonts: {
+        families: {
+            Inter: [400, 500, 600, 700]
+        },
+        display: 'swap',
+        preconnect: true,
+        preload: true
+    },
     css: [
         'primeicons/primeicons.css',
         'assets/css/main.css'
