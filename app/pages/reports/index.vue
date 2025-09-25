@@ -1,5 +1,5 @@
 <template>
-  <Reports/>
+    <Reports/>
 </template>
 
 <script setup>

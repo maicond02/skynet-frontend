@@ -1,0 +1,65 @@
+{
+  // Associações de arquivos
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  // Configurações do editor
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  // Desabilitar validação CSS padrão para evitar conflitos com Tailwind
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  // Configurações específicas do Tailwind CSS
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ui"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "ui:\\s*{([^)]*)\\s*}",
+      "(?:'|\"|`)([^']*)(?:'|\"|`)"
+    ],
+    [
+      "cva\\(([^)]*)\\)",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ]
+  ],
+  "tailwindCSS.includeLanguages": {
+    "vue": "html",
+    "typescript": "javascript"
+  },
+  "tailwindCSS.emmetCompletions": true,
+  // Configurações para Vue.js/Nuxt
+  "vetur.validation.template": false,
+  "vetur.validation.script": false,
+  "vetur.validation.style": false,
+  // Configurações TypeScript
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.autoImports": true,
+  // Formatação
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  // Configurações específicas por linguagem
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[css]": {
+    "editor.formatOnSave": false,
+    //"editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "markdown.validate.enabled": true
+}
