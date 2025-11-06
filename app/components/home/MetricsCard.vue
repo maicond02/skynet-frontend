@@ -64,9 +64,9 @@ export default {
     position: relative;
     height: 140px;
     border-radius: 16px;
-    background: var(--glass);
+    background: rgba(15, 23, 42, 0.82);
     backdrop-filter: blur(6px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid rgba(148, 163, 184, 0.18);
     padding: 18px 20px;
     text-align: left;
     display: grid;
@@ -79,11 +79,11 @@ export default {
 .kpi-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(30, 41, 59, 0.82);
 }
 
 .kpi-card--primary {
-    background: linear-gradient(135deg, rgba(27, 108, 255, 0.35), rgba(37, 42, 70, 0.39));
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(15, 23, 42, 0.58));
 }
 
 .kpi-value {
@@ -98,7 +98,7 @@ export default {
 }
 
 .kpi-title {
-    color: var(--muted);
+    color: rgba(148, 163, 184, 0.85);
     font-size: 14px;
     line-height: 1.35;
 }

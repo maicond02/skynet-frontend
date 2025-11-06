@@ -37,11 +37,11 @@ export default {
     data() {
         return {
             items: [
-                { label: 'Dashboard', icon: 'pi-home', route: '/dashboard' },
-                { label: 'Incidentes', icon: 'pi-exclamation-triangle', route: '/incidents' },
-                { label: 'Configurações', icon: 'pi-cog', route: '/settings' },
-                { label: 'Relatórios', icon: 'pi-chart-bar', route: '/reports' },
-                { label: 'Usuários', icon: 'pi-users', route: '/users' }
+                { label: 'Dashboard', icon: 'pi-home', route: '/app/dashboard' },
+                { label: 'Incidentes', icon: 'pi-exclamation-triangle', route: '/app/incidents' },
+                { label: 'Configurações', icon: 'pi-cog', route: '/app/settings' },
+                { label: 'Relatórios', icon: 'pi-chart-bar', route: '/app/reports' },
+                { label: 'Usuários', icon: 'pi-users', route: '/app/users' }
             ]
         }
     },

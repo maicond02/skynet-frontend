@@ -13,5 +13,6 @@ input, button, textarea, select {
   font-size: 100%;
 }
 body{
-  background-color: rgb(11, 11, 29);
+  background-color: #000000;
+  color: #f8fafc;
 }

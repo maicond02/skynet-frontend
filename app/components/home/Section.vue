@@ -51,9 +51,9 @@ export default {
     align-items: center;
     text-align: center;
     padding: 2rem 1rem;
-    border-top: 1px solid rgba(62, 161, 255, 0.12);
-    border-bottom: 1px solid rgba(62, 161, 255, 0.12);
-    background: radial-gradient(1200px 500px at 50% -10%, rgba(62, 161, 255, 0.08), transparent 60%);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: #000;
     scroll-snap-align: start;
 }
 
@@ -62,11 +62,7 @@ export default {
     letter-spacing: 0.08em;
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     margin-bottom: 0.25rem;
-    background: white;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 12px rgba(62, 161, 255, 0.25);
+    color: #f9fafb;
 }
 
 .tagline {
@@ -74,11 +70,7 @@ export default {
     margin: 0 0 1rem;
     font-size: clamp(0.9rem, 2vw, 1.1rem);
     letter-spacing: 0.04em;
-    background: white;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 12px rgba(62, 161, 255, 0.25);
+    color: rgba(226, 232, 240, 0.85);
     text-align: center;
 }
 

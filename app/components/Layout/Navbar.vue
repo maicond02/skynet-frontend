@@ -4,18 +4,27 @@
             <template #start>
                 <span class="brand-logo">Skynet</span>
             </template>
+            <template #end class="justify-content-end">
+                <div class="justify-content-end">
+                    <Button label="Login" icon="pi pi-sign-in" text @click="navigateToLogin" class="login-btn" />
+                    <Button label="Registro" icon="pi pi-user-plus" severity="primary" @click="navigateToRegister"
+                        class="register-btn" />
+                </div>
+            </template>
         </Menubar>
     </nav>
 </template>
 
 <script>
 import Menubar from 'primevue/menubar'
+import Button from 'primevue/button'
 
 export default {
     name: 'LayoutNavbar',
 
     components: {
-        Menubar
+        Menubar,
+        Button
     },
 
     data() {
@@ -56,6 +65,14 @@ export default {
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' })
             }
+        },
+
+        navigateToLogin() {
+            this.$router.push('/login')
+        },
+
+        navigateToRegister() {
+            this.$router.push('/register')
         }
     }
 }
@@ -67,15 +84,15 @@ export default {
     top: 0;
     z-index: 50;
     backdrop-filter: blur(8px);
-    background: rgba(12, 19, 34, 0.95);
-    border-bottom: 1px solid rgba(62, 161, 255, 0.15);
+    background: rgba(0, 0, 0, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .brand-logo {
     font-family: "Orbitron", "Rajdhani", system-ui, sans-serif;
     font-size: 1.5rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #3ea1ff, #7c3aed);
+    background: linear-gradient(135deg, #38bdf8, #3b82f6);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -87,13 +104,36 @@ export default {
     background: transparent;
     border: none;
     border-radius: 0;
-    padding: 0.5rem 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0.5rem 2rem;
+    width: 100%;
+    margin: 0;
+}
+
+:deep(.p-menubar) {
+    display: flex !important;
+    align-items: center !important;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+:deep(.p-menubar-start) {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
 }
 
 :deep(.p-menubar-root-list) {
+    display: flex;
     gap: 0.5rem;
+    flex: 1 1 auto;
+    justify-content: center;
+}
+
+:deep(.p-menubar-end) {
+    display: flex;
+    align-items: center;
+    margin-left: auto !important;
+    flex: 0 0 auto;
 }
 
 :deep(.p-menuitem-link) {
@@ -104,8 +144,8 @@ export default {
 }
 
 :deep(.p-menuitem-link:hover) {
-    background: rgba(62, 161, 255, 0.1) !important;
-    color: #3ea1ff !important;
+    background: rgba(59, 130, 246, 0.12) !important;
+    color: #38bdf8 !important;
 }
 
 :deep(.p-menuitem-icon) {
@@ -113,7 +153,28 @@ export default {
 }
 
 :deep(.p-menuitem-link:hover .p-menuitem-icon) {
-    color: #3ea1ff;
+    color: #38bdf8;
+}
+
+.navbar-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.login-btn {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.login-btn:hover {
+    color: #38bdf8 !important;
+    background: rgba(59, 130, 246, 0.12) !important;
+}
+
+.register-btn {
+    font-weight: 600;
 }
 
 @media (max-width: 768px) {
@@ -124,6 +185,14 @@ export default {
 
     :deep(.custom-menubar) {
         padding: 0.5rem;
+    }
+
+    .navbar-actions {
+        gap: 0.25rem;
+    }
+
+    .navbar-actions :deep(.p-button-label) {
+        display: none;
     }
 }
 </style>

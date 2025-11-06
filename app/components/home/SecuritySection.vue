@@ -3,7 +3,7 @@
         tagline="Proteção de dados e conformidade em primeiro lugar">
 
         <p
-            style="max-width: 700px; margin: 0 auto 1.5rem; color: rgba(255, 255, 255, 0.9); font-size: 0.95rem; line-height: 1.6;">
+            style="max-width: 700px; margin: 0 auto 1.5rem; color: rgba(226, 232, 240, 0.9); font-size: 0.95rem; line-height: 1.6;">
             Desenvolvemos nosso sistema com as melhores práticas de segurança e privacidade.
             Seu controle sobre os dados é absoluto, com transparência total sobre processamento e armazenamento.
         </p>
@@ -15,15 +15,15 @@
         </div>
 
         <div
-            style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(62, 161, 255, 0.1)); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(124, 58, 237, 0.3); max-width: 800px; margin: 0 auto;">
-            <h3 style="margin: 0 0 1rem 0; color: #fff; font-size: 1rem; text-align: center;">
-                <i class="pi pi-shield" style="color: #7c3aed; margin-right: 0.5rem;"></i>
+            style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.82), rgba(17, 24, 39, 0.82)); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.24); max-width: 800px; margin: 0 auto;">
+            <h3 style="margin: 0 0 1rem 0; color: #f8fafc; font-size: 1rem; text-align: center;">
+                <i class="pi pi-shield" style="color: #38bdf8; margin-right: 0.5rem;"></i>
                 Certificações & Conformidade
             </h3>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <div v-for="cert in certifications" :key="cert"
-                    style="background: rgba(255, 255, 255, 0.05); padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid rgba(124, 58, 237, 0.2); font-size: 0.85rem; color: rgba(255, 255, 255, 0.9);">
-                    <i class="pi pi-check-circle" style="color: #7c3aed; margin-right: 0.4rem; font-size: 0.8rem;"></i>
+                    style="background: rgba(30, 41, 59, 0.65); padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid rgba(148, 163, 184, 0.28); font-size: 0.85rem; color: rgba(226, 232, 240, 0.92);">
+                    <i class="pi pi-check-circle" style="color: #38bdf8; margin-right: 0.4rem; font-size: 0.8rem;"></i>
                     {{ cert }}
                 </div>
             </div>

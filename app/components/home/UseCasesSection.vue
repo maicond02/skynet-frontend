@@ -2,7 +2,7 @@
     <HomeSection section-id="tela-3" title="Onde Usar" tagline="Soluções versáteis para diferentes necessidades">
 
         <p
-            style="max-width: 700px; margin: 0 auto 1.5rem; color: rgba(255, 255, 255, 0.9); font-size: 0.95rem; line-height: 1.6;">
+            style="max-width: 700px; margin: 0 auto 1.5rem; color: rgba(226, 232, 240, 0.9); font-size: 0.95rem; line-height: 1.6;">
             Nossa plataforma de visão computacional se adapta a diversos cenários.
             De segurança patrimonial a análise de fluxo, as possibilidades são infinitas.
         </p>
@@ -14,15 +14,15 @@
         </div>
 
         <div
-            style="background: linear-gradient(135deg, rgba(62, 161, 255, 0.1), rgba(124, 58, 237, 0.1)); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(62, 161, 255, 0.2); max-width: 900px; margin: 0 auto;">
-            <h3 style="margin: 0 0 1rem 0; color: #fff; font-size: 1rem; text-align: center;">
-                <i class="pi pi-star" style="color: #3ea1ff; margin-right: 0.5rem;"></i>
+            style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.82), rgba(17, 24, 39, 0.82)); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.24); max-width: 900px; margin: 0 auto;">
+            <h3 style="margin: 0 0 1rem 0; color: #f8fafc; font-size: 1rem; text-align: center;">
+                <i class="pi pi-star" style="color: #38bdf8; margin-right: 0.5rem;"></i>
                 Setores que Utilizam
             </h3>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <div v-for="sector in sectors" :key="sector.name"
-                    style="background: rgba(255, 255, 255, 0.05); padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid rgba(62, 161, 255, 0.2); font-size: 0.85rem; color: rgba(255, 255, 255, 0.9); display: flex; align-items: center; gap: 0.5rem;">
-                    <i :class="`pi ${sector.icon}`" style="color: #3ea1ff; font-size: 0.9rem;"></i>
+                    style="background: rgba(30, 41, 59, 0.65); padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid rgba(148, 163, 184, 0.28); font-size: 0.85rem; color: rgba(226, 232, 240, 0.92); display: flex; align-items: center; gap: 0.5rem;">
+                    <i :class="`pi ${sector.icon}`" style="color: #38bdf8; font-size: 0.9rem;"></i>
                     {{ sector.name }}
                 </div>
             </div>

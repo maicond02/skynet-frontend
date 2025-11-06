@@ -62,7 +62,7 @@
                     © {{ currentYear }} Skynet. Todos os direitos reservados.
                 </p>
                 <p class="powered-by">
-                    Desenvolvido com <i class="pi pi-heart-fill"></i> usando Vue 3 & PrimeVue
+                    Desenvolvido usando Vue 3 & PrimeVue
                 </p>
             </div>
         </div>
@@ -83,8 +83,8 @@ export default {
 
 <style scoped>
 .footer {
-    background: linear-gradient(180deg, rgba(11, 7, 22, 0.95), rgba(5, 3, 12, 1));
-    border-top: 1px solid rgba(62, 161, 255, 0.15);
+    background: #000;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     color: rgba(255, 255, 255, 0.9);
     padding: 3rem 0 1.5rem;
 }
@@ -112,7 +112,7 @@ export default {
     font-family: "Orbitron", "Rajdhani", system-ui, sans-serif;
     font-size: 1.75rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #3ea1ff, #7c3aed);
+    background: linear-gradient(135deg, #38bdf8, #3b82f6);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -140,15 +140,15 @@ export default {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(62, 161, 255, 0.1);
+    background: rgba(59, 130, 246, 0.12);
     color: rgba(255, 255, 255, 0.8);
     transition: all 0.3s ease;
     text-decoration: none;
 }
 
 .social-link:hover {
-    background: rgba(62, 161, 255, 0.2);
-    color: #3ea1ff;
+    background: rgba(59, 130, 246, 0.24);
+    color: #38bdf8;
     transform: translateY(-2px);
 }
 
@@ -179,12 +179,12 @@ export default {
 }
 
 .footer-links a:hover {
-    color: #3ea1ff;
+    color: #38bdf8;
     transform: translateX(4px);
 }
 
 .footer-bottom {
-    border-top: 1px solid rgba(62, 161, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding-top: 1.5rem;
     display: flex;
     justify-content: space-between;

@@ -62,10 +62,8 @@ export default {
 .hero {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(1200px 600px at 50% -10%, rgba(124, 58, 237, 0.25), transparent 60%),
-        linear-gradient(180deg, rgba(11, 7, 22, 0.9), rgba(11, 7, 22, 0.9)),
-        var(--bg-1);
-    color: var(--text);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.95), rgba(15, 23, 42, 0.92));
+    color: #f8fafc;
     padding: 96px 0 56px;
     min-height: 100vh;
     height: 100vh;
@@ -104,7 +102,7 @@ export default {
 
 .sub {
     margin: 18px auto 28px;
-    color: var(--muted);
+    color: rgba(226, 232, 240, 0.76);
     font-size: clamp(15px, 1.8vw, 18px);
     max-width: 760px;
 }

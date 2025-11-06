@@ -31,11 +31,11 @@ export default {
 
 <style scoped>
 .feature-card {
-    background: linear-gradient(135deg, rgba(62, 161, 255, 0.08), rgba(124, 58, 237, 0.08));
-    backdrop-filter: blur(10px);
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(6px);
     padding: 1.25rem;
     border-radius: 12px;
-    border: 1px solid rgba(62, 161, 255, 0.2);
+    border: 1px solid rgba(148, 163, 184, 0.16);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -49,15 +49,15 @@ export default {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #3ea1ff, #7c3aed);
+    background: linear-gradient(90deg, #38bdf8, #3b82f6);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .feature-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(62, 161, 255, 0.4);
-    box-shadow: 0 12px 24px rgba(62, 161, 255, 0.15);
+    border-color: rgba(59, 130, 246, 0.35);
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.18);
 }
 
 .feature-card:hover::before {
@@ -68,7 +68,7 @@ export default {
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #3ea1ff, #7c3aed);
+    background: linear-gradient(135deg, #38bdf8, #2563eb);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,13 +85,13 @@ export default {
     font-family: "Orbitron", "Rajdhani", system-ui, sans-serif;
     font-size: 1rem;
     font-weight: 700;
-    color: #fff;
+    color: #f8fafc;
     margin: 0 0 0.5rem 0;
     letter-spacing: 0.02em;
 }
 
 .feature-description {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(226, 232, 240, 0.75);
     font-size: 0.85rem;
     line-height: 1.5;
     margin: 0;

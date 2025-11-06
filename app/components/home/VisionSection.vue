@@ -4,9 +4,9 @@
 
         <div style="display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem;">
             <div v-for="badge in badges" :key="badge"
-                style="background: rgba(62, 161, 255, 0.1); padding: 0.35rem 0.7rem; border-radius: 6px; border: 1px solid rgba(62, 161, 255, 0.3); font-size: 0.8rem;">
-                <i class="pi pi-check-circle" style="color: #4ade80; margin-right: 0.35rem; font-size: 0.75rem;"></i>
-                <span style="color: rgba(255, 255, 255, 0.9);">{{ badge }}</span>
+                style="background: rgba(100, 116, 139, 0.16); padding: 0.35rem 0.7rem; border-radius: 6px; border: 1px solid rgba(148, 163, 184, 0.35); font-size: 0.8rem;">
+                <i class="pi pi-check-circle" style="color: #22c55e; margin-right: 0.35rem; font-size: 0.75rem;"></i>
+                <span style="color: rgba(226, 232, 240, 0.92);">{{ badge }}</span>
             </div>
         </div>
 
@@ -17,19 +17,19 @@
         </div>
 
         <div
-            style="background: linear-gradient(135deg, rgba(62, 161, 255, 0.1), rgba(124, 58, 237, 0.1)); padding: 1rem 1.25rem; border-radius: 10px; border: 1px solid rgba(62, 161, 255, 0.2); max-width: 700px; margin: 0 auto;">
-            <h3 style="margin: 0 0 0.6rem 0; color: #fff; font-size: 0.95rem; text-align: center;">
-                <i class="pi pi-star-fill" style="color: #fbbf24; margin-right: 0.35rem; font-size: 0.8rem;"></i>
+            style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.78), rgba(17, 24, 39, 0.78)); padding: 1rem 1.25rem; border-radius: 10px; border: 1px solid rgba(148, 163, 184, 0.24); max-width: 700px; margin: 0 auto;">
+            <h3 style="margin: 0 0 0.6rem 0; color: #f9fafb; font-size: 0.95rem; text-align: center;">
+                <i class="pi pi-star-fill" style="color: #facc15; margin-right: 0.35rem; font-size: 0.8rem;"></i>
                 Como Funciona
             </h3>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
                 <div v-for="step in steps" :key="step.number" style="text-align: center;">
                     <div
-                        style="background: rgba(62, 161, 255, 0.2); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.4rem; font-weight: bold; font-size: 0.85rem; color: #3ea1ff;">
+                        style="background: rgba(59, 130, 246, 0.18); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.4rem; font-weight: bold; font-size: 0.85rem; color: #38bdf8;">
                         {{ step.number }}
                     </div>
-                    <h4 style="margin: 0 0 0.25rem 0; color: #fff; font-size: 0.85rem;">{{ step.title }}</h4>
-                    <p style="margin: 0; color: rgba(255, 255, 255, 0.7); font-size: 0.75rem;">{{ step.description }}
+                    <h4 style="margin: 0 0 0.25rem 0; color: #e2e8f0; font-size: 0.85rem;">{{ step.title }}</h4>
+                    <p style="margin: 0; color: rgba(226, 232, 240, 0.7); font-size: 0.75rem;">{{ step.description }}
                     </p>
                 </div>
             </div>
