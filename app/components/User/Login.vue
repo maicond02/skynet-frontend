@@ -137,8 +137,8 @@ export default {
     width: 100%;
     max-width: 420px;
     padding: 2.5rem;
-    box-shadow: 0 24px 60px rgba(12, 19, 34, 0.35);
-    border: 1px solid rgba(62, 161, 255, 0.12);
+    box-shadow: 0 24px 60px rgba(62, 161, 255, 0.3);
+    border: 1px solid rgba(84, 172, 255, 0.404);
 }
 
 .login-header {
