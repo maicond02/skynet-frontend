@@ -62,18 +62,27 @@ export default {
 <style scoped>
 .kpi-card {
     position: relative;
-    height: 140px;
-    border-radius: 16px;
+    height: 120px;
+    border-radius: 12px;
     background: rgba(15, 23, 42, 0.82);
     backdrop-filter: blur(6px);
     border: 1px solid rgba(148, 163, 184, 0.18);
-    padding: 18px 20px;
+    padding: 14px 16px;
     text-align: left;
     display: grid;
     align-content: center;
-    gap: 10px;
+    gap: 8px;
     box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+    .kpi-card {
+        height: 140px;
+        border-radius: 16px;
+        padding: 18px 20px;
+        gap: 10px;
+    }
 }
 
 .kpi-card:hover {
@@ -87,7 +96,7 @@ export default {
 }
 
 .kpi-value {
-    font-size: 32px;
+    font-size: clamp(24px, 5vw, 32px);
     font-weight: 800;
     letter-spacing: 0.5px;
 }
@@ -99,15 +108,23 @@ export default {
 
 .kpi-title {
     color: rgba(148, 163, 184, 0.85);
-    font-size: 14px;
+    font-size: clamp(12px, 2.5vw, 14px);
     line-height: 1.35;
 }
 
 .kpi-illustration {
     position: absolute;
-    right: 14px;
-    bottom: 10px;
-    font-size: 44px;
+    right: 10px;
+    bottom: 8px;
+    font-size: 36px;
     opacity: 0.2;
+}
+
+@media (min-width: 768px) {
+    .kpi-illustration {
+        right: 14px;
+        bottom: 10px;
+        font-size: 44px;
+    }
 }
 </style>

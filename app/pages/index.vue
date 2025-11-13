@@ -32,5 +32,12 @@ export default {
 .page {
   scroll-snap-type: y proximity;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .page {
+    scroll-snap-type: none;
+  }
 }
 </style>

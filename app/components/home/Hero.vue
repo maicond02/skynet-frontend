@@ -64,13 +64,20 @@ export default {
     overflow: hidden;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.95), rgba(15, 23, 42, 0.92));
     color: #f8fafc;
-    padding: 96px 0 56px;
+    padding: 80px 1rem 40px;
     min-height: 100vh;
-    height: 100vh;
+    height: auto;
     display: grid;
     place-items: center;
     gap: 1rem;
     scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+    .hero {
+        padding: 96px 0 56px;
+        height: 100vh;
+    }
 }
 
 .hero__overlay {
@@ -90,29 +97,44 @@ export default {
     width: min(1120px, 92vw);
     margin: 0 auto;
     text-align: center;
+    padding: 0 1rem;
 }
 
 .headline {
-    font-size: clamp(32px, 4.4vw, 64px);
-    line-height: 1.08;
+    font-size: clamp(28px, 8vw, 64px);
+    line-height: 1.1;
     font-weight: 800;
     letter-spacing: 0.2px;
-    margin: 0;
+    margin: 0 0 1rem;
 }
 
 .sub {
-    margin: 18px auto 28px;
+    margin: 1rem auto 1.5rem;
     color: rgba(226, 232, 240, 0.76);
-    font-size: clamp(15px, 1.8vw, 18px);
+    font-size: clamp(14px, 4vw, 18px);
     max-width: 760px;
+    line-height: 1.5;
+    padding: 0 0.5rem;
 }
 
 .actions {
     display: flex;
-    gap: 14px;
+    gap: 0.75rem;
     justify-content: center;
     align-items: center;
-    margin-bottom: 48px;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+    .sub {
+        margin: 18px auto 28px;
+    }
+
+    .actions {
+        gap: 14px;
+        margin-bottom: 48px;
+    }
 }
 
 .metrics {
@@ -121,16 +143,25 @@ export default {
 
 .grid {
     display: grid;
-    gap: 16px;
+    gap: 12px;
+    grid-template-columns: 1fr;
 }
 
 .col-12 {
     grid-column: 1 / -1;
 }
 
+@media (min-width: 640px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+}
+
 @media (min-width: 768px) {
     .grid {
         grid-template-columns: repeat(12, 1fr);
+        gap: 16px;
     }
 
     .md\:col-3 {

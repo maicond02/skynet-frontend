@@ -2,35 +2,30 @@
     <HomeSection section-id="tela-1" title="Visão em tempo real, sem complicação"
         tagline="YOLOv8 + FastAPI • integra com suas câmeras">
 
-        <div style="display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem;">
-            <div v-for="badge in badges" :key="badge"
-                style="background: rgba(100, 116, 139, 0.16); padding: 0.35rem 0.7rem; border-radius: 6px; border: 1px solid rgba(148, 163, 184, 0.35); font-size: 0.8rem;">
-                <i class="pi pi-check-circle" style="color: #22c55e; margin-right: 0.35rem; font-size: 0.75rem;"></i>
-                <span style="color: rgba(226, 232, 240, 0.92);">{{ badge }}</span>
+        <div class="badges-container">
+            <div v-for="badge in badges" :key="badge" class="badge-item">
+                <i class="pi pi-check-circle badge-icon"></i>
+                <span class="badge-text">{{ badge }}</span>
             </div>
         </div>
 
-        <div
-            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 100%; margin: 0 auto 1rem; padding: 0 1rem;">
+        <div class="features-grid">
             <FeatureCard v-for="feature in features" :key="feature.title" :icon="feature.icon" :title="feature.title"
                 :description="feature.description" />
         </div>
 
-        <div
-            style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.78), rgba(17, 24, 39, 0.78)); padding: 1rem 1.25rem; border-radius: 10px; border: 1px solid rgba(148, 163, 184, 0.24); max-width: 700px; margin: 0 auto;">
-            <h3 style="margin: 0 0 0.6rem 0; color: #f9fafb; font-size: 0.95rem; text-align: center;">
+        <div class="how-it-works">
+            <h3 class="how-it-works-title">
                 <i class="pi pi-star-fill" style="color: #facc15; margin-right: 0.35rem; font-size: 0.8rem;"></i>
                 Como Funciona
             </h3>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-                <div v-for="step in steps" :key="step.number" style="text-align: center;">
-                    <div
-                        style="background: rgba(59, 130, 246, 0.18); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.4rem; font-weight: bold; font-size: 0.85rem; color: #38bdf8;">
+            <div class="steps-grid">
+                <div v-for="step in steps" :key="step.number" class="step-item">
+                    <div class="step-number">
                         {{ step.number }}
                     </div>
-                    <h4 style="margin: 0 0 0.25rem 0; color: #e2e8f0; font-size: 0.85rem;">{{ step.title }}</h4>
-                    <p style="margin: 0; color: rgba(226, 232, 240, 0.7); font-size: 0.75rem;">{{ step.description }}
-                    </p>
+                    <h4 class="step-title">{{ step.title }}</h4>
+                    <p class="step-description">{{ step.description }}</p>
                 </div>
             </div>
         </div>
@@ -119,4 +114,126 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.badges-container {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+}
+
+.badge-item {
+    background: rgba(100, 116, 139, 0.16);
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.badge-icon {
+    color: #22c55e;
+    margin-right: 0.35rem;
+    font-size: 0.7rem;
+}
+
+.badge-text {
+    color: rgba(226, 232, 240, 0.92);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 100%;
+    margin: 0 auto 1rem;
+    padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.how-it-works {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.78), rgba(17, 24, 39, 0.78));
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .how-it-works {
+        padding: 1rem 1.25rem;
+    }
+}
+
+.how-it-works-title {
+    margin: 0 0 0.75rem 0;
+    color: #f9fafb;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .how-it-works-title {
+        font-size: 0.95rem;
+        margin: 0 0 1rem 0;
+    }
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+    .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+}
+
+.step-item {
+    text-align: center;
+}
+
+.step-number {
+    background: rgba(59, 130, 246, 0.18);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.4rem;
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #38bdf8;
+}
+
+.step-title {
+    margin: 0 0 0.25rem 0;
+    color: #e2e8f0;
+    font-size: 0.85rem;
+}
+
+.step-description {
+    margin: 0;
+    color: rgba(226, 232, 240, 0.7);
+    font-size: 0.75rem;
+    line-height: 1.4;
+}
+</style>
