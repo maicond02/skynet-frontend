@@ -130,15 +130,15 @@ export default {
     align-items: center;
     justify-content: center;
     padding: 2rem 1rem;
-    background: radial-gradient(1200px 600px at 50% -10%, rgba(62, 161, 255, 0.15), transparent 60%);
+    background: transparent;
 }
 
 .login-card {
     width: 100%;
     max-width: 420px;
     padding: 2.5rem;
-    box-shadow: 0 24px 60px rgba(62, 161, 255, 0.3);
-    border: 1px solid rgba(84, 172, 255, 0.404);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .login-header {

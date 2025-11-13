@@ -1,7 +1,7 @@
 <template>
-  <div class="flex h-screen bg-gray-900 text-white overflow-hidden">
+  <div class="flex h-screen bg-black text-white overflow-hidden">
     <DashboardSidebar />
-    
+
     <div class="flex-1 flex flex-col overflow-hidden ml-[280px] pt-12">
       <DashboardTopbar />
 

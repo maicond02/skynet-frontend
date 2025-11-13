@@ -1,6 +1,6 @@
 <template>
     <aside
-        class="fixed inset-y-0 left-0 z-[1000] flex w-[280px] max-[960px]:w-[260px] flex-col border-r border-white/10 bg-[#14161c]/70 text-slate-200 backdrop-blur-md transition-[width] duration-300">
+        class="fixed inset-y-0 left-0 z-[1000] flex w-[280px] max-[960px]:w-[260px] flex-col border-r border-white/10 bg-black/40 text-slate-200 backdrop-blur-md transition-[width] duration-300">
         <div class="brand flex items-center gap-3 p-3 text-[1.2rem] font-bold tracking-wide text-zinc-50">
             <i class="pi pi-shield text-[1.3rem]"></i>
             <span>Skynet</span>
