@@ -3,7 +3,11 @@ interface User {
     name: string
     email: string
     company?: string
-    password: string
+    password?: string
+    role?: string
+    status?: string
+    department?: string
+    lastAccess?: string | Date | null
 }
 
 interface RegisterData {
@@ -11,6 +15,9 @@ interface RegisterData {
     email: string
     password: string
     company?: string
+    role?: string
+    status?: string
+    department?: string
 }
 
 interface LoginData {
@@ -77,18 +84,84 @@ class AuthService {
     }
 
     private initializeDefaultUser(): void {
-        const adminEmail = 'admin@email.com'
-        const adminExists = this.users.some(user => user.email === adminEmail)
-
-        if (!adminExists) {
-            const adminUser: User = {
+        const defaultUsers = [
+            {
                 id: 'admin-default',
                 name: 'Administrador',
-                email: adminEmail,
+                email: 'admin@email.com',
                 password: '12345678',
-                company: 'Skynet'
+                company: 'Skynet',
+                role: 'Administrador',
+                status: 'active',
+                department: 'Diretoria',
+                lastAccess: new Date().toISOString()
+            },
+            {
+                id: 'user-carlos',
+                name: 'Carlos Alberto de Aguiar',
+                email: 'carlos@skynet.com',
+                password: '12345678',
+                company: 'Skynet',
+                role: 'Administrador',
+                status: 'active',
+                department: 'Segurança',
+                lastAccess: new Date(Date.now() - 3600 * 1000).toISOString()
+            },
+            {
+                id: 'user-joao',
+                name: 'João Marcos Racanelli',
+                email: 'joao@skynet.com',
+                password: '12345678',
+                company: 'Skynet',
+                role: 'Operador',
+                status: 'active',
+                department: 'Operações',
+                lastAccess: new Date(Date.now() - 5 * 3600 * 1000).toISOString()
+            },
+            {
+                id: 'user-leonardo',
+                name: 'Leonardo Marcondeli',
+                email: 'leonardo@skynet.com',
+                password: '12345678',
+                company: 'Skynet',
+                role: 'Analista',
+                status: 'active',
+                department: 'Analytics',
+                lastAccess: new Date(Date.now() - 24 * 3600 * 1000).toISOString()
+            },
+            {
+                id: 'user-maicon',
+                name: 'Maicon Douglas Mendes Alves',
+                email: 'maicon@skynet.com',
+                password: '12345678',
+                company: 'Skynet',
+                role: 'Administrador',
+                status: 'active',
+                department: 'Desenvolvimento',
+                lastAccess: new Date().toISOString()
+            },
+            {
+                id: 'user-vinicius',
+                name: 'Vinicius de Moraes de Godoi',
+                email: 'vinicius@skynet.com',
+                password: '12345678',
+                company: 'Skynet',
+                role: 'Operador',
+                status: 'inactive',
+                department: 'Suporte',
+                lastAccess: null
             }
-            this.users.push(adminUser)
+        ]
+
+        let hasChanges = false
+        defaultUsers.forEach(defaultUser => {
+            if (!this.users.some(u => u.email === defaultUser.email)) {
+                this.users.push(defaultUser)
+                hasChanges = true
+            }
+        })
+
+        if (hasChanges) {
             this.saveUsersToStorage()
         }
     }
@@ -108,7 +181,11 @@ class AuthService {
             name: data.name,
             email: data.email,
             password: data.password,
-            company: data.company
+            company: data.company,
+            role: data.role || 'Operador',
+            status: data.status || 'active',
+            department: data.department || '',
+            lastAccess: null
         }
 
         this.users.push(newUser)
@@ -119,6 +196,19 @@ class AuthService {
             message: 'Cadastro realizado com sucesso!',
             user: newUser
         }
+    }
+
+    updateUser(user: User): void {
+        const index = this.users.findIndex(u => u.id === user.id)
+        if (index !== -1) {
+            this.users[index] = { ...this.users[index], ...user }
+            this.saveUsersToStorage()
+        }
+    }
+
+    deleteUser(userId: string): void {
+        this.users = this.users.filter(u => u.id !== userId)
+        this.saveUsersToStorage()
     }
 
     login(data: LoginData): { success: boolean; message: string; user?: User } {

@@ -18,25 +18,26 @@
 
             <template #content>
                 <div class="toolbar-controls">
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
+                    <div class="search-wrapper">
+                        <i class="pi pi-search search-icon"></i>
                         <InputText v-model="filters.search" placeholder="Buscar por nome ou e-mail"
-                            class="w-full md:w-72" />
-                    </span>
+                            class="w-full md:w-72 search-input" />
+                    </div>
 
                     <Dropdown v-model="filters.status" :options="statusOptions" option-label="label"
                         option-value="value" class="status-filter" />
                 </div>
 
                 <DataTable :value="filteredUsers" data-key="id" :loading="loading" responsive-layout="scroll" row-hover
-                    paginator :rows="8" :rows-per-page-options="[8, 16, 24]" empty-message="Nenhum usuário encontrado.">
+                    paginator :rows="8" :rows-per-page-options="[8, 16, 24]" empty-message="Nenhum usuário encontrado."
+                    class="team-table">
                     <Column field="name" header="Colaborador" sortable>
                         <template #body="{ data }">
                             <div class="user-column">
                                 <div class="avatar-fallback">{{ initials(data.name) }}</div>
                                 <div class="user-info">
-                                    <strong>{{ data.name }}</strong>
-                                    <span>{{ data.email }}</span>
+                                    <span class="font-medium text-white">{{ data.name }}</span>
+                                    <span class="text-sm text-gray-400">{{ data.email }}</span>
                                 </div>
                             </div>
                         </template>
@@ -44,7 +45,7 @@
 
                     <Column field="role" header="Função" sortable>
                         <template #body="{ data }">
-                            <Tag :value="data.role" severity="info" />
+                            <Tag :value="data.role || 'N/A'" severity="info" />
                         </template>
                     </Column>
 
@@ -56,16 +57,16 @@
 
                     <Column field="lastAccess" header="Último acesso" sortable>
                         <template #body="{ data }">
-                            <span>{{ lastAccessLabel(data.lastAccess) }}</span>
+                            <span class="text-gray-300">{{ lastAccessLabel(data.lastAccess) }}</span>
                         </template>
                     </Column>
 
                     <Column header="Ações" body-class="actions-column">
                         <template #body="{ data }">
                             <div class="actions-group">
-                                <Button icon="pi pi-pencil" rounded text severity="info"
+                                <Button icon="pi pi-pencil" text rounded severity="info"
                                     @click="openEditDialog(data)" />
-                                <Button icon="pi pi-trash" rounded text severity="danger"
+                                <Button icon="pi pi-trash" text rounded severity="danger"
                                     @click="confirmDelete(data)" />
                             </div>
                         </template>
@@ -75,20 +76,27 @@
         </Card>
 
         <Dialog v-model:visible="isDialogVisible" :modal="true" :style="{ width: '480px' }" :header="dialogTitle"
-            dismissable-mask @hide="resetForm">
+            dismissable-mask @hide="resetForm" class="custom-dialog">
             <form class="form-grid" @submit.prevent="handleSubmit">
                 <div>
                     <label for="name" class="form-label">Nome completo</label>
                     <InputText id="name" v-model.trim="form.name" placeholder="Nome do colaborador"
-                        :class="inputClass('name')" />
+                        :class="inputClass('name')" class="w-full" />
                     <small v-if="errors.name" class="form-error">{{ errors.name }}</small>
                 </div>
 
                 <div>
                     <label for="email" class="form-label">E-mail corporativo</label>
                     <InputText id="email" v-model.trim="form.email" placeholder="email@empresa.com"
-                        :class="inputClass('email')" />
+                        :class="inputClass('email')" class="w-full" />
                     <small v-if="errors.email" class="form-error">{{ errors.email }}</small>
+                </div>
+
+                <div v-if="dialogMode === 'create'">
+                    <label for="password" class="form-label">Senha Inicial</label>
+                    <InputText id="password" v-model.trim="form.password" placeholder="Senha de acesso"
+                        :class="inputClass('password')" class="w-full" type="password" />
+                    <small v-if="errors.password" class="form-error">{{ errors.password }}</small>
                 </div>
 
                 <div>
@@ -106,7 +114,8 @@
 
                 <div>
                     <label for="departments" class="form-label">Departamento</label>
-                    <InputText id="departments" v-model.trim="form.department" placeholder="Equipe ou departamento" />
+                    <InputText id="departments" v-model.trim="form.department" placeholder="Equipe ou departamento"
+                        class="w-full" />
                 </div>
 
                 <div class="dialog-footer">
@@ -117,7 +126,7 @@
         </Dialog>
 
         <Dialog v-model:visible="deleteDialogVisible" header="Remover usuário" :modal="true" :style="{ width: '420px' }"
-            dismissable-mask>
+            dismissable-mask class="custom-dialog">
             <div class="delete-content">
                 <i class="pi pi-exclamation-triangle"></i>
                 <div>
@@ -144,6 +153,7 @@ import Dialog from 'primevue/dialog'
 import Dropdown from 'primevue/dropdown'
 import InputText from 'primevue/inputtext'
 import Tag from 'primevue/tag'
+import { useAuth } from '~/composables/useAuth'
 
 export default {
     name: 'TeamManagement',
@@ -177,7 +187,8 @@ export default {
             form: this.createEmptyForm(),
             errors: {},
             deleteDialogVisible: false,
-            deleteTarget: null
+            deleteTarget: null,
+            authService: null
         }
     },
     computed: {
@@ -195,9 +206,9 @@ export default {
                         return true
                     }
                     return (
-                        user.name.toLowerCase().includes(searchTerm) ||
-                        user.email.toLowerCase().includes(searchTerm) ||
-                        user.role.toLowerCase().includes(searchTerm)
+                        (user.name && user.name.toLowerCase().includes(searchTerm)) ||
+                        (user.email && user.email.toLowerCase().includes(searchTerm)) ||
+                        (user.role && user.role.toLowerCase().includes(searchTerm))
                     )
                 })
         },
@@ -212,37 +223,8 @@ export default {
         async fetchUsers() {
             this.loading = true
             try {
-                // Simula chamada à API para buscar usuários.
-                await new Promise((resolve) => setTimeout(resolve, 600))
-                this.users = [
-                    {
-                        id: 1,
-                        name: 'Ana Ribeiro',
-                        email: 'ana.ribeiro@skynet.ai',
-                        role: 'Administrador',
-                        status: 'active',
-                        department: 'Segurança',
-                        lastAccess: new Date(Date.now() - 3600 * 1000)
-                    },
-                    {
-                        id: 2,
-                        name: 'Bruno Martins',
-                        email: 'bruno.martins@skynet.ai',
-                        role: 'Operador',
-                        status: 'active',
-                        department: 'Operações',
-                        lastAccess: new Date(Date.now() - 5 * 3600 * 1000)
-                    },
-                    {
-                        id: 3,
-                        name: 'Carla Dias',
-                        email: 'carla.dias@skynet.ai',
-                        role: 'Analista',
-                        status: 'inactive',
-                        department: 'Analytics',
-                        lastAccess: null
-                    }
-                ]
+                // Use authService to get users
+                this.users = this.authService.getAllUsers()
             } finally {
                 this.loading = false
             }
@@ -252,6 +234,7 @@ export default {
                 id: null,
                 name: '',
                 email: '',
+                password: '',
                 role: null,
                 status: 'active',
                 department: ''
@@ -293,6 +276,9 @@ export default {
             } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
                 errors.email = 'Informe um e-mail válido.'
             }
+            if (this.dialogMode === 'create' && !this.form.password) {
+                errors.password = 'Informe uma senha inicial.'
+            }
             if (!this.form.role) {
                 errors.role = 'Selecione a função.'
             }
@@ -312,31 +298,28 @@ export default {
                     this.updateUser()
                 }
                 this.isDialogVisible = false
+                this.fetchUsers() // Refresh list
             } finally {
                 this.dialogLoading = false
             }
         },
         createUser() {
-            const nextId = this.users.reduce((highest, user) => Math.max(highest, user.id), 0) + 1
-            this.users = [
-                ...this.users,
-                {
-                    ...this.form,
-                    id: nextId,
-                    lastAccess: null
-                }
-            ]
+            const result = this.authService.register({
+                name: this.form.name,
+                email: this.form.email,
+                password: this.form.password,
+                role: this.form.role,
+                status: this.form.status,
+                department: this.form.department
+            })
+
+            if (!result.success) {
+                this.errors.email = result.message
+                throw new Error(result.message)
+            }
         },
         updateUser() {
-            this.users = this.users.map((user) => {
-                if (user.id !== this.form.id) {
-                    return user
-                }
-                return {
-                    ...user,
-                    ...this.form
-                }
-            })
+            this.authService.updateUser(this.form)
         },
         confirmDelete(user) {
             this.deleteTarget = user
@@ -349,7 +332,8 @@ export default {
             this.dialogLoading = true
             try {
                 await new Promise((resolve) => setTimeout(resolve, 300))
-                this.users = this.users.filter((user) => user.id !== this.deleteTarget.id)
+                this.authService.deleteUser(this.deleteTarget.id)
+                this.fetchUsers() // Refresh list
                 this.deleteDialogVisible = false
             } finally {
                 this.dialogLoading = false
@@ -398,6 +382,7 @@ export default {
         }
     },
     mounted() {
+        this.authService = useAuth()
         this.fetchUsers()
     }
 }
@@ -432,10 +417,9 @@ export default {
 }
 
 .team-card {
-    background: rgba(10, 18, 36, 0.6) !important;
-    border: 1px solid rgba(62, 161, 255, 0.18) !important;
-    border-radius: 18px !important;
-    backdrop-filter: blur(18px);
+    background: #000 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
 }
 
 .team-card :deep(.p-card-body) {
@@ -459,6 +443,45 @@ export default {
 
 .status-filter :deep(.p-dropdown) {
     width: 220px;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.search-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.search-input {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding-left: 2.5rem !important;
+}
+
+.team-table :deep(.p-datatable-header),
+.team-table :deep(.p-datatable-thead > tr > th),
+.team-table :deep(.p-datatable-tbody > tr),
+.team-table :deep(.p-datatable-tbody > tr > td),
+.team-table :deep(.p-paginator) {
+    background: transparent !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.team-table :deep(.p-datatable-tbody > tr:hover) {
+    background: rgba(255, 255, 255, 0.05) !important;
 }
 
 .user-column {
@@ -475,8 +498,8 @@ export default {
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    color: rgba(62, 161, 255, 0.95);
-    background: rgba(62, 161, 255, 0.12);
+    color: #fff;
+    background: linear-gradient(135deg, #3ea1ff, #7c3aed);
 }
 
 .user-info {
@@ -484,11 +507,6 @@ export default {
     flex-direction: column;
     gap: 0.15rem;
     color: rgba(255, 255, 255, 0.8);
-}
-
-.user-info span {
-    font-size: 0.85rem;
-    color: rgba(148, 163, 184, 0.85);
 }
 
 .actions-group {

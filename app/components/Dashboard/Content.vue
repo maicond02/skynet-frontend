@@ -341,10 +341,7 @@ export default {
     font-family: "Orbitron", "Rajdhani", system-ui, sans-serif;
     font-size: 1.75rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #38bdf8, #3b82f6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #e2e8f0;
     margin: 0 0 0.25rem;
 }
 

@@ -11,7 +11,7 @@
                 <li v-for="item in items" :key="item.route">
                     <RouterLink :to="item.route"
                         class="menu-link flex items-center gap-3 rounded-lg p-3 text-gray-300 no-underline transition-colors hover:bg-white/10 hover:text-white"
-                        :class="isRouteActive(item.route) ? 'bg-indigo-600 text-white font-medium' : ''">
+                        :class="isRouteActive(item.route) ? 'bg-white/20 text-white font-medium' : ''">
                         <i :class="['pi', item.icon, 'text-[1.1rem]']"></i>
                         <span class="text-[0.95rem] whitespace-nowrap">{{ item.label }}</span>
                     </RouterLink>
