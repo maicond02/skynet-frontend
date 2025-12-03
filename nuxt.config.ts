@@ -55,6 +55,9 @@ export default defineNuxtConfig({
             theme: {
                 preset: MyPreset
             }
+        },
+        components: {
+            include: ['Toast', 'Button', 'InputText', 'Password', 'Checkbox']
         }
     }
 })

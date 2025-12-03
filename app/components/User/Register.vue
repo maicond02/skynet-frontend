@@ -85,6 +85,8 @@ import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Checkbox from 'primevue/checkbox'
 import Button from 'primevue/button'
+import { useAuth } from '~/composables/useAuth'
+import { useToast } from 'primevue/usetoast'
 
 export default {
     name: 'UserRegister',
@@ -94,6 +96,16 @@ export default {
         Password,
         Checkbox,
         Button
+    },
+
+    setup() {
+        const authService = useAuth()
+        const toast = useToast()
+
+        return {
+            authService,
+            toast
+        }
     },
 
     data() {
@@ -166,10 +178,47 @@ export default {
             this.isSubmitting = true
 
             try {
-                // TODO: Substituir por chamada real à API de cadastro.
-                await new Promise(resolve => setTimeout(resolve, 1000))
+                await new Promise(resolve => setTimeout(resolve, 500))
 
-                this.$emit('register', { ...this.form })
+                const result = this.authService.register({
+                    name: this.form.name,
+                    email: this.form.email,
+                    password: this.form.password,
+                    company: this.form.company
+                })
+
+                if (result.success) {
+                    if (this.toast) {
+                        this.toast.add({
+                            severity: 'success',
+                            summary: 'Sucesso',
+                            detail: result.message,
+                            life: 3000
+                        })
+                    }
+
+                    setTimeout(() => {
+                        this.$router.push('/login')
+                    }, 1000)
+                } else {
+                    if (this.toast) {
+                        this.toast.add({
+                            severity: 'error',
+                            summary: 'Erro',
+                            detail: result.message,
+                            life: 4000
+                        })
+                    }
+                }
+            } catch (error) {
+                if (this.toast) {
+                    this.toast.add({
+                        severity: 'error',
+                        summary: 'Erro',
+                        detail: 'Erro ao realizar cadastro. Tente novamente.',
+                        life: 4000
+                    })
+                }
             } finally {
                 this.isSubmitting = false
             }

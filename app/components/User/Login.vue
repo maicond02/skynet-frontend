@@ -49,6 +49,8 @@ import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Checkbox from 'primevue/checkbox'
 import Button from 'primevue/button'
+import { useAuth } from '~/composables/useAuth'
+import { useToast } from 'primevue/usetoast'
 
 export default {
     name: 'UserLogin',
@@ -58,6 +60,16 @@ export default {
         Password,
         Checkbox,
         Button
+    },
+
+    setup() {
+        const authService = useAuth()
+        const toast = useToast()
+
+        return {
+            authService,
+            toast
+        }
     },
 
     data() {
@@ -107,10 +119,46 @@ export default {
             this.isSubmitting = true
 
             try {
-                // TODO: Substituir por chamada real à API de autenticação.
-                await new Promise(resolve => setTimeout(resolve, 800))
+                await new Promise(resolve => setTimeout(resolve, 500))
 
-                this.$emit('login', { ...this.form })
+                const result = this.authService.login({
+                    email: this.form.email,
+                    password: this.form.password,
+                    remember: this.form.remember
+                })
+
+                if (result.success) {
+                    if (this.toast) {
+                        this.toast.add({
+                            severity: 'success',
+                            summary: 'Sucesso',
+                            detail: result.message,
+                            life: 2000
+                        })
+                    }
+
+                    setTimeout(() => {
+                        this.$router.push('/app/dashboard')
+                    }, 800)
+                } else {
+                    if (this.toast) {
+                        this.toast.add({
+                            severity: 'error',
+                            summary: 'Erro',
+                            detail: result.message,
+                            life: 4000
+                        })
+                    }
+                }
+            } catch (error) {
+                if (this.toast) {
+                    this.toast.add({
+                        severity: 'error',
+                        summary: 'Erro',
+                        detail: 'Erro ao fazer login. Tente novamente.',
+                        life: 4000
+                    })
+                }
             } finally {
                 this.isSubmitting = false
             }

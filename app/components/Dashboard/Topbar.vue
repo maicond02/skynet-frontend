@@ -1,86 +1,144 @@
 <template>
-
-    <div class="flex justify-end absolute top-6 left-0 right-12">
-        <IconField iconPosition="left">
-            <InputIcon class="pi pi-search"></InputIcon>
-            <InputText placeholder="Buscar..." class="search-input" />
-        </IconField>
-        <Button icon="pi pi-bell" text rounded severity="secondary" v-badge.danger="'4'" />
-        <Avatar image="https://i.pravatar.cc/150?u=a042581f4e29026704d" size="large" shape="circle" />
+    <div class="topbar-container">
+        <div class="topbar-content">
+            <div class="search-wrapper">
+                <IconField iconPosition="left">
+                    <InputIcon class="pi pi-search"></InputIcon>
+                    <InputText placeholder="Buscar..." class="search-input" />
+                </IconField>
+            </div>
+            <Button icon="pi pi-bell" text rounded severity="secondary" v-badge.danger="'4'" class="action-btn" />
+            <Avatar :label="userInitial" size="large" shape="circle" class="user-avatar" />
+        </div>
     </div>
-
 </template>
 
 <script>
+import { useAuth } from '~/composables/useAuth'
+
 export default {
-    name: 'DashboardTopbar'
+    name: 'DashboardTopbar',
+
+    data() {
+        return {
+            userInitial: ''
+        }
+    },
+
+    mounted() {
+        const authService = useAuth()
+        const user = authService.getCurrentUser()
+
+        if (user && user.email) {
+            this.userInitial = user.email.charAt(0).toUpperCase()
+        } else {
+            this.userInitial = 'U'
+        }
+    }
 }
 </script>
 
 <style scoped>
-.floating-topbar {
-    position: absolute;
-    top: 1rem;
-    left: 1.5rem;
-    right: 1.5rem;
-    z-index: 999;
-
-    display: flex;
-    align-items: center;
-    /* alinha verticalmente */
-    justify-content: space-between;
-    /* busca à esquerda, ações à direita */
-    gap: 16px;
-    padding: 0;
-    /* sem padding do container */
-    background: transparent;
-    /* sem fundo */
-    border: none;
-    /* sem borda */
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+.topbar-container {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1rem 1.5rem;
+    background: #000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.search-container {
+.topbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    max-width: 100%;
+}
+
+.search-wrapper {
     flex: 1;
     max-width: 420px;
 }
 
-/* Mantém o input bonito e alinhado */
-.search-container :deep(.search-input) {
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    border-radius: 8px;
+.search-wrapper :deep(.p-inputtext) {
     width: 100%;
-    height: 40px;
-    /* altura consistente */
-    line-height: 40px;
-    /* alinha o texto verticalmente */
-    transition: border-color 0.2s, box-shadow 0.2s;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    transition: all 0.2s ease;
 }
 
-.search-container :deep(.search-input:focus) {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 1px #4f46e5;
+.search-wrapper :deep(.p-inputtext::placeholder) {
+    color: rgba(255, 255, 255, 0.5);
 }
 
-.search-container :deep(.p-icon) {
+.search-wrapper :deep(.p-inputtext:focus) {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: #3ea1ff;
+    box-shadow: 0 0 0 3px rgba(62, 161, 255, 0.15);
+}
+
+.search-wrapper :deep(.p-icon) {
     color: rgba(255, 255, 255, 0.6);
+    left: 0.75rem;
 }
 
-.right-actions {
-    display: flex;
-    align-items: center;
-    /* alinha ícones verticalmente */
-    gap: 12px;
+.action-btn {
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
 }
 
-/* Badge mais discreto e alinhado */
-.floating-topbar :deep(.p-badge) {
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+}
+
+.user-avatar {
+    background: linear-gradient(135deg, #3ea1ff, #7c3aed);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(62, 161, 255, 0.3);
+}
+
+.topbar-content :deep(.p-badge) {
     min-width: 1.1rem;
     height: 1.1rem;
     line-height: 1.1rem;
     font-size: 0.7rem;
+    background: #ef4444;
+}
+
+@media (max-width: 768px) {
+    .topbar-container {
+        padding: 0.75rem 1rem;
+    }
+
+    .search-wrapper {
+        max-width: 280px;
+    }
+
+    .topbar-content {
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .search-wrapper {
+        max-width: 200px;
+    }
 }
 </style>
