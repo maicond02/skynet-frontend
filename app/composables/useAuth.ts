@@ -157,6 +157,14 @@ class AuthService {
     getAllUsers(): User[] {
         return this.users
     }
+
+    checkAuthAndRedirect(router: any): boolean {
+        if (!this.isAuthenticated()) {
+            router.push('/login')
+            return false
+        }
+        return true
+    }
 }
 
 let authServiceInstance: AuthService | null = null

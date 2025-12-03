@@ -8,20 +8,35 @@
                 </IconField>
             </div>
             <Button icon="pi pi-bell" text rounded severity="secondary" v-badge.danger="'4'" class="action-btn" />
-            <Avatar :label="userInitial" size="large" shape="circle" class="user-avatar" />
+            <Avatar :label="userInitial" size="large" shape="circle" class="user-avatar" @click="toggleMenu" />
+            <Menu ref="menu" :model="menuItems" :popup="true" class="user-menu" />
         </div>
     </div>
 </template>
 
 <script>
 import { useAuth } from '~/composables/useAuth'
+import Menu from 'primevue/menu'
 
 export default {
     name: 'DashboardTopbar',
 
+    components: {
+        Menu
+    },
+
     data() {
         return {
-            userInitial: ''
+            userInitial: '',
+            menuItems: [
+                {
+                    label: 'Sair',
+                    icon: 'pi pi-sign-out',
+                    command: () => {
+                        this.handleLogout()
+                    }
+                }
+            ]
         }
     },
 
@@ -34,6 +49,18 @@ export default {
         } else {
             this.userInitial = 'U'
         }
+    },
+
+    methods: {
+        toggleMenu(event) {
+            this.$refs.menu.toggle(event)
+        },
+
+        handleLogout() {
+            const authService = useAuth()
+            authService.logout()
+            this.$router.push('/login')
+        }
     }
 }
 </script>
@@ -42,26 +69,25 @@ export default {
 .topbar-container {
     position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
+    z-index: 999;
     padding: 1rem 1.5rem;
     background: #000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
 }
 
 .topbar-content {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: flex-end;
     gap: 1rem;
-    max-width: 100%;
+    flex-wrap: nowrap;
 }
 
 .search-wrapper {
-    flex: 1;
-    max-width: 420px;
+    flex: 0 1 420px;
+    min-width: 200px;
 }
 
 .search-wrapper :deep(.p-inputtext) {
@@ -92,6 +118,7 @@ export default {
 .action-btn {
     color: rgba(255, 255, 255, 0.8);
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .action-btn:hover {
@@ -107,6 +134,7 @@ export default {
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     border: 2px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
 }
 
 .user-avatar:hover {

@@ -30,6 +30,7 @@
 </template>
 <script>
 import { RouterLink } from 'vue-router'
+import { useAuth } from '~/composables/useAuth'
 
 export default {
     name: 'AppSidebar',
@@ -41,7 +42,7 @@ export default {
                 { label: 'Incidentes', icon: 'pi-exclamation-triangle', route: '/app/incidents' },
                 { label: 'Configurações', icon: 'pi-cog', route: '/app/settings' },
                 { label: 'Relatórios', icon: 'pi-chart-bar', route: '/app/reports' },
-                { label: 'Usuários', icon: 'pi-users', route: '/app/users' }
+                { label: 'Usuários', icon: 'pi-users', route: '/app/team-management' }
             ]
         }
     },
@@ -51,7 +52,9 @@ export default {
             return currentPath === targetRoute || currentPath.startsWith(targetRoute + '/')
         },
         onLogout() {
-            this.$router.push('/')
+            const authService = useAuth()
+            authService.logout()
+            this.$router.push('/login')
         }
     }
 }

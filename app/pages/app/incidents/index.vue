@@ -1,9 +1,10 @@
 <template>
-    <Incidents/>
+    <Incidents />
 </template>
 
 <script setup>
-    definePageMeta({
-        layout: 'dashboard' // ✅ precisa ser string
-    })
+definePageMeta({
+    layout: 'dashboard',
+    middleware: 'auth'
+})
 </script>
